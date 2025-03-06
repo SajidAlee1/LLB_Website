@@ -42,7 +42,7 @@ const Login = () => {
       setIsLoading(true);
       const userdata = { email, password };
       const res = await axios.post(
-        "http://localhost:3000/auth/login",
+        "https://llbbackend.vercel.app/auth/login",
         userdata
       );
       if (res?.status === 200) {
@@ -65,7 +65,7 @@ const Login = () => {
     axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/auth/verify',{
+        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
           withCredentials:true,
         });
         if(res?.status===200){
