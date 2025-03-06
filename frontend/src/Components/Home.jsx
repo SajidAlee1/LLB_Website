@@ -25,22 +25,22 @@ function Home() {
     <div className="relative z-0 min-h-screen w-full">
       <Slider {...settings} className="w-full overflow-hidden">
         <div>
-          <img src="public/image/lawlogo.jpg" alt="Slide 1" className=" w-full h-96 rounded-lg" />
+          <img src="/image/lawlogo.jpg" alt="Slide 1" className=" w-full h-96 rounded-lg" />
         </div>
         <div>
-          <img src="public/image/lawlogo2.webp" alt="Slide 1" className=" w-full h-96 rounded-lg" />
+          <img src="/image/lawlogo2.webp" alt="Slide 1" className=" w-full h-96 rounded-lg" />
         </div>
         <div>
-          <img src="public/image/carousalimg1.jpg" alt="Slide 1" className=" w-full h-96 rounded-lg" />
+          <img src="/image/carousalimg1.jpg" alt="Slide 1" className=" w-full h-96 rounded-lg" />
         </div>
         <div>
-        <img src="public/image/carousalimg2.jpg" alt="Slide 1" className="w-full h-96 rounded-lg" />
+        <img src="/image/carousalimg2.jpg" alt="Slide 1" className="w-full h-96 rounded-lg" />
         </div>
         <div>
-        <img src="public/image/carousalimg3.jpg" alt="Slide 1" className="w-full h-96 rounded-lg" />
+        <img src="/image/carousalimg3.jpg" alt="Slide 1" className="w-full h-96 rounded-lg" />
         </div>
         <div>
-        <img src="public/image/carousalimg4.jpg" alt="Slide 1" className="w-full h-96 rounded-lg" />
+        <img src="/image/carousalimg4.jpg" alt="Slide 1" className="w-full h-96 rounded-lg" />
         </div>
       </Slider>
       <br />
