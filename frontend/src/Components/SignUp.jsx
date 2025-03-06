@@ -55,7 +55,7 @@ const SignUp = () => {
     try {
       setIsLoading(true);
       const userdata = { name, email, password };
-      const res = await axios.post("http://localhost:3000/auth/signup", userdata);
+      const res = await axios.post("https://llbbackend.vercel.app/auth/signup", userdata);
 
       if (res?.status === 200) {
         setIsLoading(false);
@@ -77,7 +77,7 @@ const SignUp = () => {
     axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/auth/verify',{
+        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
           withCredentials:true,
         });
         if(res?.status===200){
@@ -92,7 +92,7 @@ const SignUp = () => {
     verify();
   },[])
   const googlehandle = ()=>{
-    window.open('http://localhost:3000/auth/google/callback',"_self")
+    window.open('https://llbbackend.vercel.app/auth/google/callback',"_self")
   }
 
   return (
