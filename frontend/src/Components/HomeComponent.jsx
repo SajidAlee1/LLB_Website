@@ -10,7 +10,7 @@ const HomeComponent = () => {
       <br />
       <div className='flex justify-between items-center'>
         <div className='flex flex-col md:flex-row justify-between items-center'>
-      <img src="public/image/lawlogo.jpg" alt="law img" className='w-full h-full rounded-lg' />
+      <img src="/image/lawlogo.jpg" alt="law img" className='w-full h-full rounded-lg' />
       <div  className=" p-6 md:p-10 rounded-lg shadow-lg max-w-3xl mx-auto text-center">
       <h1 className="text-xl md:text-2xl font-bold  border-b-4 border-green-500 inline-block pb-2">About the LLB Website</h1>
       <br />
