@@ -46,7 +46,7 @@ const ResetPassword = () => {
     try {
       setIsLoading(true);
       const res = await axios.patch(
-        `http://localhost:3000/auth/resetpassword/${token}`,
+        `https://llbbackend.vercel.app/auth/resetpassword/${token}`,
         { password }
       );
 
