@@ -38,7 +38,7 @@ formdata.append("statement", statement);
 
 try {
   setIsLoading(true);
-  const res = await axios.post("http://localhost:3000/posts/createpost", formdata, {
+  const res = await axios.post("https://llbbackend.vercel.app/posts/createpost", formdata, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
