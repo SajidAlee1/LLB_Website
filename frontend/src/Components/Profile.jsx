@@ -17,7 +17,7 @@ const Profile = () => {
     axios.defaults.withCredentials = true;
     const verifyUser = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/auth/verify');
+        const res = await axios.get('https://llbbackend.vercel.app/auth/verify');
         if (res?.status !== 200) navigate('/login');
       } catch (error) {
         console.error(error);
@@ -30,7 +30,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/auth/Loggeduserdata');
+        const res = await axios.get('https://llbbackend.vercel.app/auth/Loggeduserdata');
         if (res?.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -45,7 +45,7 @@ const Profile = () => {
     try {
       setIsLoading(true)
       axios.defaults.withCredentials=true;
-      const res = await axios.delete('http://localhost:3000/auth/profile',{
+      const res = await axios.delete('https://llbbackend.vercel.app/auth/profile',{
         withCredentials:true
       })
       if(res?.status===200){
