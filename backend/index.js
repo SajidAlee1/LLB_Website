@@ -46,7 +46,7 @@ app.use(passport.session());
 passport.use(new Strategy({
     clientID: process.env.GOOGLE_CLIENTID,
     clientSecret: process.env.GOOGLE_SECRETID,
-    callbackURL: 'https://llbbackend.vercel.app/auth/google/callback',
+    callbackURL: 'http://localhost:3000/auth/google/callback',
     scope: ['email', 'profile']
 }, async (accessToken, refreshToken, profile, done) => {
     try {
