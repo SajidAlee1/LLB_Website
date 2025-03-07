@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     axios.defaults.withCredentials = true;
     const verify = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/auth/verify", {
+        const res = await axios.get("https://llbbackend.vercel.app/auth/verify", {
           withCredentials: true,
         });
         if (res?.status === 200) {
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
 
     try {
       setIsLoading(true);
-      const res = await axios.post("http://localhost:3000/auth/forgotpassword", { email });
+      const res = await axios.post("https://llbbackend.vercel.app/auth/forgotpassword", { email });
 
       if (res.status === 200) {
         setIsLoading(false);
