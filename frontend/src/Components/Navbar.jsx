@@ -16,7 +16,7 @@ const Navbar = () => {
   const Logout = async () => {
     try {
 
-      const res = await axios.get('http://localhost:3000/auth/logout', {
+      const res = await axios.get('https://llbbackend.vercel.app/auth/logout', {
         withCredentials: true, 
         headers:{
           'Content-Type':'application/json'
@@ -36,7 +36,7 @@ const Navbar = () => {
     axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/auth/verify',{
+        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
           withCredentials:true,
         })
         if(res?.status===200){
@@ -57,7 +57,7 @@ const Navbar = () => {
   useEffect(()=>{
     const Admin = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/admin/adminrole')
+        const res = await axios.get('https://llbbackend.vercel.app/admin/adminrole')
         if(res?.status===200){
           setIsAdmin(true)
         }else{
@@ -72,7 +72,7 @@ const Navbar = () => {
   useEffect(()=>{
     const Manager = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/manager/managerrole')
+        const res = await axios.get('https://llbbackend.vercel.app/manager/managerrole')
         if(res?.status===200){
           setIsManager(true)
         }else{
@@ -87,7 +87,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/auth/Loggeduserdata");
+        const res = await axios.get("https://llbbackend.vercel.app/auth/Loggeduserdata");
         if (res?.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }
