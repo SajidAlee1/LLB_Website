@@ -20,7 +20,7 @@ const DynamicRoute = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/videos/getvideopost/${movieID}`
+          `https://llbbackend.vercel.app/videos/getvideopost/${movieID}`
         );
         if (res.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
@@ -39,7 +39,7 @@ const DynamicRoute = () => {
   useEffect(() => {
     const userrole = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/manager/managerrole");
+        const res = await axios.get("https://llbbackend.vercel.app/manager/managerrole");
         setIsAdmin(res?.status === 200);
       } catch (error) {
         console.log(error);
@@ -54,7 +54,7 @@ const DynamicRoute = () => {
     setIsLoading(true);
     try {
       const res = await axios.delete(
-        `http://localhost:3000/videos/deletevideo/${id}`
+        `https://llbbackend.vercel.app/videos/deletevideo/${id}`
       );
       if (res?.status === 200) {
         toast.success("Post deleted successfully!");
