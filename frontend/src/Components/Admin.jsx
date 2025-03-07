@@ -18,7 +18,7 @@ const Admin = () => {
   useEffect(()=>{
     const admin = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/admin/adminrole',{
+        const res = await axios.get('https://llbbackend.vercel.app/admin/adminrole',{
           withCredentials:true
         })
         if(res?.status===200){
