@@ -23,7 +23,7 @@ const EntireNotes = ({ onClose }) => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/notes/allnotes');
+        const res = await axios.get('https://llbbackend.vercel.app/notes/allnotes');
         if (res?.status === 200) {
           setNotesData(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -39,7 +39,7 @@ const EntireNotes = ({ onClose }) => {
   const Delete = async (id) => {
     try {
       setIsLoading(true);
-      const res = await axios.delete(`http://localhost:3000/notes/deletenotes/${id}`);
+      const res = await axios.delete(`https://llbbackend.vercel.app/notes/deletenotes/${id}`);
       if (res?.status === 200) {
         setNotesData((prevData) => prevData.filter((note) => note._id !== id));
         toast.success('Deleted Successfully');
