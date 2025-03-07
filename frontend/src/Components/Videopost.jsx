@@ -38,7 +38,7 @@ const Videopost = ({ onClose }) => {
         formdata.append('video',video);
         formdata.append('heading',heading)
         formdata.append('statement',statement)
-        const res = await axios.post('http://localhost:3000/videos/videopost',formdata,{
+        const res = await axios.post('https://llbbackend.vercel.app/videos/videopost',formdata,{
           headers:{
             'Content-Type':'multipart/form-data',
           }
