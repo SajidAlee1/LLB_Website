@@ -19,7 +19,7 @@ import videorouter from './routers/Videopost.js';
 config({path:'./.env.local'});
 const app = express();
 app.use(cors({
-    origin:'https://llbwebsite.vercel.app/',
+    origin:'https://llbwebsite.vercel.app',
     methods:["POST","GET","PATCH","PUT","DELETE"],
     credentials:true,
 }));
