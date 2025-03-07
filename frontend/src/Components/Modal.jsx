@@ -25,7 +25,7 @@ const Modal = ({ onClose }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/auth/Loggeduserdata");
+        const res = await axios.get("https://llbbackend.vercel.app/auth/Loggeduserdata");
         if (res?.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -49,7 +49,7 @@ const Modal = ({ onClose }) => {
       if (state.name) formData.append("name", state.name);
       axios.defaults.withCredentials = true;
 
-      const res = await axios.post("http://localhost:3000/auth/profile", formData, {
+      const res = await axios.post("https://llbbackend.vercel.app/auth/profile", formData, {
         withCredentials: true,
       });
 
