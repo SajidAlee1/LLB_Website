@@ -143,7 +143,7 @@ app.get('/auth/google/callback', passport.authenticate("google", { session: true
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
-        res.redirect("https://llbwebsite.vercel.app/");
+        res.redirect("http://localhost:5173/");
     } catch (error) {
         console.error("Error generating token:", error);
         res.redirect("http://localhost:5173/signup");
