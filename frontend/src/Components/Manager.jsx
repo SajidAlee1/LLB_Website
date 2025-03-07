@@ -18,7 +18,7 @@ const Manager = () => {
   useEffect(() => {
     const checkManagerRole = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/manager/managerrole', {
+        const res = await axios.get('https://llbbackend.vercel.app/manager/managerrole', {
           withCredentials: true
         });
   
