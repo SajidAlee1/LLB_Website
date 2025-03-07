@@ -17,7 +17,7 @@ const PostDynamicRoute = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/posts/idpost/${id}`);
+        const res = await axios.get(`https://llbbackend.vercel.app/posts/idpost/${id}`);
         if (res?.status === 200) {
           setPostdata([res.data]); // Ensure it's always an array
         } else {
@@ -34,7 +34,7 @@ const PostDynamicRoute = () => {
     const Admin = async () => {
       try {
         axios.defaults.withCredentials = true;
-        const res = await axios.get("http://localhost:3000/manager/managerrole", {
+        const res = await axios.get("https://llbbackend.vercel.app/manager/managerrole", {
           withCredentials: true,
         });
         setIsAdmin(res?.status === 200);
@@ -48,7 +48,7 @@ const PostDynamicRoute = () => {
   const deletepost = async (id) => {
     try {
       setIsLoading(true);
-      const res = await axios.delete(`http://localhost:3000/posts/deletepost/${id}`);
+      const res = await axios.delete(`https://llbbackend.vercel.app/posts/deletepost/${id}`);
       if (res?.status === 200) {
         setIsLoading(false);
         toast.success("Post Deleted Successfully");
