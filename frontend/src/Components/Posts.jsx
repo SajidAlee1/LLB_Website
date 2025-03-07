@@ -12,7 +12,7 @@ const Posts = () => {
     axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/auth/verify',{
+        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
           withCredentials:true,
         });
         if(res?.status===200){
@@ -30,7 +30,7 @@ const Posts = () => {
   useEffect(()=>{
     const videoposts = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/videos/getvideopost')
+        const res = await axios.get('https://llbbackend.vercel.app/videos/getvideopost')
         if(res?.status===200){
           setVideopost(Array.isArray? res.data : [res.data])
         }
@@ -43,7 +43,7 @@ const Posts = () => {
   useEffect(()=>{
     const textpost = async ()=>{
       try {
-        const res = await axios.get('http://localhost:3000/posts/getpost')
+        const res = await axios.get('https://llbbackend.vercel.app/posts/getpost')
         if(res?.status===200){
           setTextpost(Array.isArray ? res.data : [res.data]);
         }
