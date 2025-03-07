@@ -6,7 +6,7 @@ app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
-app.listen(process.env.PORT,async()=>{
+app.listen('/https://llbbackend.vercel.app',async()=>{
   await Connect();
     console.log(`My app is running on ${process.env.PORT}`.yellow)
 })
