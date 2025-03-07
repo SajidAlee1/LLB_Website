@@ -23,7 +23,7 @@ const UserTable = ({ onClose }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/auth/getuser');
+        const res = await axios.get('https://llbbackend.vercel.app/auth/getuser');
         if (res.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -44,7 +44,7 @@ const UserTable = ({ onClose }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/auth/deleteuser/${id}`);
+      await axios.delete(`https://llbbackend.vercel.app/auth/deleteuser/${id}`);
       setUserdata(userdata.filter((user) => user._id !== id));
     } catch (error) {
       console.error("Error deleting user:", error?.response?.data || error.message);
@@ -54,7 +54,7 @@ const UserTable = ({ onClose }) => {
   const handleAddAsManager = async (id, e) => {
     e.preventDefault();
     try {
-      const res = await axios.patch(`http://localhost:3000/auth/addmanager/${id}`);
+      const res = await axios.patch(`https://llbbackend.vercel.app/auth/addmanager/${id}`);
       if (res?.status === 200) {
         setUserdata(userdata.map(user => 
           user._id === id ? { ...user, role: "Manager" } : user
