@@ -76,7 +76,7 @@ const UploadNotes = () => {
         if(formData.subjectName) formdata.append('subjectName',subjectName);
         if(formData.year) formdata.append('year',year);
         axios.defaults.withCredentials=true;
-        const res = await axios.post('http://localhost:3000/notes/uploadnotes',formdata,{
+        const res = await axios.post('https://llbbackend.vercel.app/notes/uploadnotes',formdata,{
           withCredentials:true
         })
         if(res?.status===200){
@@ -99,7 +99,7 @@ const UploadNotes = () => {
     axios.defaults.withCredentials = true;
     const verify = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/auth/verify", {
+        const res = await axios.get("https://llbbackend.vercel.app/auth/verify", {
           withCredentials: true,
         });
         if (res?.status !== 200) {
