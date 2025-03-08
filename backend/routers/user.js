@@ -124,6 +124,7 @@ router.get("/verify", verifytoken, (req, res) => {
 
 //logout
 router.get("/logout", async (req, res) => {
+  await req.session.destroy();
   const token = await req.cookies.token;
   if (!token) {
     res.status(400).json({ message: "Token not-found" });
