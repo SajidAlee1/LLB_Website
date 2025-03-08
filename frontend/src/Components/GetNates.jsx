@@ -2,11 +2,12 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
 import { ThreeDots } from "react-loader-spinner";
 import toast from "react-hot-toast";
 import { useDispatch } from 'react-redux'
 import { notesdata } from "../redux/counter/counterSlice";
+import api from '../config/api';
+
 const initialSate = {
   department:'',
   year:'',
@@ -20,12 +21,9 @@ const GetNotes = () => {
   const [state,setState] = useState(initialSate)
   const [isLoading,setIsLoading] = useState(false)
   useEffect(()=>{
-    axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
-          withCredentials:true,
-        });
+        const res = await api.get('/auth/verify');
         if(res?.status===200){
           console.log('User is loggedIn')
         }else{
@@ -35,10 +33,10 @@ const GetNotes = () => {
        console.log(error) 
        navigate('/login')
       }
-      
     }
     verify();
-  },[])
+  },[]);
+
   const handleChange = (event)=>{
     setState({...state,[event.target.name]:event.target.value})
   }
@@ -72,10 +70,9 @@ const GetNotes = () => {
       }
     try {
         setIsLoading(true);
-        const res = await axios.post('https://llbbackend.vercel.app/notes/findnotes', state, { withCredentials: true });
+        const res = await api.post('/notes/findnotes', state);
 
         if (res.status === 200) {
-          console.log([res.data])
             console.log('API Response:', res.data);
             setIsLoading(false);
             toast.success('We got your choice successfully');

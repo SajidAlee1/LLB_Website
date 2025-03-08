@@ -1,6 +1,5 @@
 import React from 'react'
 import { useEffect } from 'react'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -13,12 +12,13 @@ import Postsend from './Postsend'
 import Videopost from './Videopost'
 import UserTable from './UserTable'
 import EntireNotes from './EntireNotes'
+import api from '../config/api'
 const Manager = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const checkManagerRole = async () => {
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/manager/managerrole', {
+        const res = await api.get('/manager/managerrole', {
           withCredentials: true
         });
   

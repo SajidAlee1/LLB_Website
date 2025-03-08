@@ -1,12 +1,12 @@
 
-import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
-import { ThreeDots } from 'react-loader-spinner';
+import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { ThreeDots } from 'react-loader-spinner';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import api from '../config/api';
 
 const EntireNotes = ({ onClose }) => {
   const [notesData, setNotesData] = useState([]);
@@ -23,7 +23,7 @@ const EntireNotes = ({ onClose }) => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/notes/allnotes');
+        const res = await api.get('/notes/allnotes');
         if (res?.status === 200) {
           setNotesData(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -39,7 +39,7 @@ const EntireNotes = ({ onClose }) => {
   const Delete = async (id) => {
     try {
       setIsLoading(true);
-      const res = await axios.delete(`https://llbbackend.vercel.app/notes/deletenotes/${id}`);
+      const res = await api.delete(`/notes/deletenotes/${id}`);
       if (res?.status === 200) {
         setNotesData((prevData) => prevData.filter((note) => note._id !== id));
         toast.success('Deleted Successfully');

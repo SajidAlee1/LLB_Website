@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../config/api";
 const initialState = {
   heading:'',
   statement:''
@@ -38,7 +37,7 @@ const Videopost = ({ onClose }) => {
         formdata.append('video',video);
         formdata.append('heading',heading)
         formdata.append('statement',statement)
-        const res = await axios.post('https://llbbackend.vercel.app/videos/videopost',formdata,{
+        const res = await api.post('/videos/videopost',formdata,{
           headers:{
             'Content-Type':'multipart/form-data',
           }

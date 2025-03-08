@@ -19,9 +19,9 @@ import videorouter from './routers/Videopost.js';
 config({path:'./.env.local'});
 const app = express();
 app.use(cors({
-    origin:'https://llbwebsite.vercel.app',
-    methods:["POST","GET","PATCH","PUT","DELETE"],
-    credentials:true,
+    origin: process.env.FRONTEND_BASE_URL,
+    methods: ["POST","GET","PATCH","PUT","DELETE"],
+    credentials: true
 }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -43,10 +43,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport Google Strategy
+
+console.log(process.env.GOOGLE_CLIENTID);
+
 passport.use(new Strategy({
     clientID: process.env.GOOGLE_CLIENTID,
     clientSecret: process.env.GOOGLE_SECRETID,
-    callbackURL: 'http://localhost:3000/auth/google/callback',
+    callbackURL: `${process.env.BACKEND_BASE_URL}/auth/google/callback`,
     scope: ['email', 'profile']
 }, async (accessToken, refreshToken, profile, done) => {
     try {
@@ -138,15 +141,21 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'prof
 app.get('/auth/google/callback', passport.authenticate("google", { session: true }), async (req, res) => {
     try {
         const user = req.user;
+        // console.log({
+        //     user
+        //   });
         const token = jwt.sign({ id: user._id, name: user.name }, process.env.SECRET_KEY, { expiresIn: '7d' });
         res.cookie('token', token, {
             httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
         });
-        res.redirect("https://llbwebsite.vercel.app/");
+        res.redirect(`${process.env.FRONTEND_BASE_URL}`);
     } catch (error) {
         console.error("Error generating token:", error);
-        res.redirect("https://llbwebsite.vercel.app/signup");
+        
+        res.redirect(`${process.env.FRONTEND_BASE_URL}`);
     }
 });
 app.use('/auth',router);

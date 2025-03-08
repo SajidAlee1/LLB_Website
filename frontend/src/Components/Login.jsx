@@ -1,11 +1,8 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../config/api";
 const initialState = {
   email: "",
   password: "",
@@ -41,8 +38,8 @@ const Login = () => {
     try {
       setIsLoading(true);
       const userdata = { email, password };
-      const res = await axios.post(
-       'https://llbbackend.vercel.app/auth/login',
+      const res = await api.post(
+        `/auth/login`,
         userdata
       );
       if (res?.status === 200) {
@@ -62,11 +59,10 @@ const Login = () => {
     }
   };
   useEffect(()=>{
-    axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
-          withCredentials:true,
+        const res = await api.get(`/auth/verify`, {
+          withCredentials: true,
         });
         if(res?.status===200){
           navigate('/')

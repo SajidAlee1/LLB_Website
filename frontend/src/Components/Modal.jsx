@@ -1,9 +1,9 @@
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner"; // Import loader
+import api from "../config/api";
 
 const initialState = {
   name: "",
@@ -25,7 +25,7 @@ const Modal = ({ onClose }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("https://llbbackend.vercel.app/auth/Loggeduserdata");
+        const res = await api.get("/auth/Loggeduserdata");
         if (res?.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -47,9 +47,9 @@ const Modal = ({ onClose }) => {
       const formData = new FormData();
       if (file) formData.append("image", file);
       if (state.name) formData.append("name", state.name);
-      axios.defaults.withCredentials = true;
+      
 
-      const res = await axios.post("https://llbbackend.vercel.app/auth/profile", formData, {
+      const res = await api.post("/auth/profile", formData, {
         withCredentials: true,
       });
 

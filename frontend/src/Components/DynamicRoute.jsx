@@ -1,12 +1,12 @@
 
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { motion } from "framer-motion";
-import { ThreeDots } from "react-loader-spinner";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { ThreeDots } from "react-loader-spinner";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../config/api";
 
 const DynamicRoute = () => {
   const [userdata, setUserdata] = useState([]);
@@ -19,8 +19,8 @@ const DynamicRoute = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          `https://llbbackend.vercel.app/videos/getvideopost/${movieID}`
+        const res = await api.get(
+          `/videos/getvideopost/${movieID}`
         );
         if (res.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
@@ -39,7 +39,7 @@ const DynamicRoute = () => {
   useEffect(() => {
     const userrole = async () => {
       try {
-        const res = await axios.get("https://llbbackend.vercel.app/manager/managerrole");
+        const res = await api.get("/manager/managerrole");
         setIsAdmin(res?.status === 200);
       } catch (error) {
         console.log(error);
@@ -53,8 +53,8 @@ const DynamicRoute = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await axios.delete(
-        `https://llbbackend.vercel.app/videos/deletevideo/${id}`
+      const res = await api.delete(
+        `/videos/deletevideo/${id}`
       );
       if (res?.status === 200) {
         toast.success("Post deleted successfully!");

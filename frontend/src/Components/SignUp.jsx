@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link
+import { useNavigate, Link } from "react-router-dom";
+import api, { baseURL } from "../config/api";
 
 const initialState = {
   name: "",
@@ -55,7 +55,7 @@ const SignUp = () => {
     try {
       setIsLoading(true);
       const userdata = { name, email, password };
-      const res = await axios.post('https://llbbackend.vercel.app/auth/signup', userdata);
+      const res = await api.post(`/auth/signup`, userdata);
 
       if (res?.status === 200) {
         setIsLoading(false);
@@ -72,13 +72,15 @@ const SignUp = () => {
       toast.error(error.message);
     }
   };
-
   useEffect(()=>{
-    axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
-          withCredentials:true,
+        const res = await api.get(`/auth/verify`, {
+          withCredentials: true,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
         });
         if(res?.status===200){
           navigate('/')
@@ -90,11 +92,10 @@ const SignUp = () => {
       } 
     }
     verify();
-  },[])
+  },[]);
   const googlehandle = ()=>{
-    window.open('https://llbbackend.vercel.app/auth/google/callback',"_self")
+    window.open(`${baseURL}/auth/google/callback`, "_self");
   }
-
   return (
     <div className="flex justify-center items-center flex-col w-full h-screen bg-gradient-to-br from-purple-500 to-indigo-600 p-4">
       <motion.h1

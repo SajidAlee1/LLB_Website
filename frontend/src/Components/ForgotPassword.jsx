@@ -1,11 +1,8 @@
-import React from "react";
-import { useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../config/api";
 const initialState = {
   email: "",
 };
@@ -14,10 +11,9 @@ const ForgotPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    axios.defaults.withCredentials = true;
     const verify = async () => {
       try {
-        const res = await axios.get("https://llbbackend.vercel.app/auth/verify", {
+        const res = await api.get("/auth/verify", {
           withCredentials: true,
         });
         if (res?.status === 200) {
@@ -46,7 +42,7 @@ const ForgotPassword = () => {
 
     try {
       setIsLoading(true);
-      const res = await axios.post("https://llbbackend.vercel.app/auth/forgotpassword", { email });
+      const res = await api.post("/auth/forgotpassword", { email });
 
       if (res.status === 200) {
         setIsLoading(false);

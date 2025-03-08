@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
+import api from "../config/api";
 const initialState = {
   heading:'',
   statement:''
@@ -38,7 +38,7 @@ formdata.append("statement", statement);
 
 try {
   setIsLoading(true);
-  const res = await axios.post("https://llbbackend.vercel.app/posts/createpost", formdata, {
+  const res = await api.post("/posts/createpost", formdata, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

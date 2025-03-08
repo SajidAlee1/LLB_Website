@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast } from "react-hot-toast";
 import Modal from './Modal';
 import { ThreeDots } from 'react-loader-spinner';
+import api from '../config/api';
 
 const Profile = () => {
   const [userdata, setUserdata] = useState([]);
@@ -14,10 +14,9 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.defaults.withCredentials = true;
     const verifyUser = async () => {
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/verify');
+        const res = await api.get('/auth/verify');
         if (res?.status !== 200) navigate('/login');
       } catch (error) {
         console.error(error);
@@ -30,7 +29,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/Loggeduserdata');
+        const res = await api.get('/auth/Loggeduserdata');
         if (res?.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -40,17 +39,15 @@ const Profile = () => {
     };
     fetchUserData();
   }, []);
+
   const handleDelete = async(e)=>{
     e.preventDefault()
     try {
       setIsLoading(true)
-      axios.defaults.withCredentials=true;
-      const res = await axios.delete('https://llbbackend.vercel.app/auth/profile',{
-        withCredentials:true
-      })
+      const res = await api.delete('/auth/profile')
       if(res?.status===200){
         setIsLoading(false)
-        toast.success('Accound deleted successfully')
+        toast.success('Account deleted successfully')
         window.location.reload();
         navigate('/signup')
       }else{

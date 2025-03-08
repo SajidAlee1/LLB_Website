@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import api from "../config/api";
 const Navbar = () => {
   const navigate = useNavigate();
   const [drop, setDrop] = useState(false);
@@ -16,7 +15,7 @@ const Navbar = () => {
   const Logout = async () => {
     try {
 
-      const res = await axios.get('https://llbbackend.vercel.app/auth/logout', {
+      const res = await api.get('/auth/logout', {
         withCredentials: true, 
         headers:{
           'Content-Type':'application/json'
@@ -33,10 +32,9 @@ const Navbar = () => {
     }
   };
   useEffect(()=>{
-    axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
+        const res = await api.get('/auth/verify',{
           withCredentials:true,
         })
         if(res?.status===200){
@@ -57,7 +55,7 @@ const Navbar = () => {
   useEffect(()=>{
     const Admin = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/admin/adminrole')
+        const res = await api.get('/admin/adminrole')
         if(res?.status===200){
           setIsAdmin(true)
         }else{
@@ -72,7 +70,7 @@ const Navbar = () => {
   useEffect(()=>{
     const Manager = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/manager/managerrole')
+        const res = await api.get('/manager/managerrole')
         if(res?.status===200){
           setIsManager(true)
         }else{
@@ -87,7 +85,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("https://llbbackend.vercel.app/auth/Loggeduserdata");
+        const res = await api.get("/auth/Loggeduserdata");
         if (res?.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }

@@ -1,18 +1,18 @@
 
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { motion } from 'framer-motion';
+import { Dialog, DialogActions, DialogTitle } from '@mui/material';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import { Dialog, DialogTitle, DialogActions } from '@mui/material';
+import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import api from '../config/api';
 
 const UserTable = ({ onClose }) => {
   const [userdata, setUserdata] = useState([]);
@@ -23,7 +23,7 @@ const UserTable = ({ onClose }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/getuser');
+        const res = await api.get('/auth/getuser');
         if (res.status === 200) {
           setUserdata(Array.isArray(res.data) ? res.data : [res.data]);
         }
@@ -44,7 +44,7 @@ const UserTable = ({ onClose }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://llbbackend.vercel.app/auth/deleteuser/${id}`);
+      await api.delete(`/auth/deleteuser/${id}`);
       setUserdata(userdata.filter((user) => user._id !== id));
     } catch (error) {
       console.error("Error deleting user:", error?.response?.data || error.message);
@@ -54,7 +54,7 @@ const UserTable = ({ onClose }) => {
   const handleAddAsManager = async (id, e) => {
     e.preventDefault();
     try {
-      const res = await axios.patch(`https://llbbackend.vercel.app/auth/addmanager/${id}`);
+      const res = await api.patch(`/auth/addmanager/${id}`);
       if (res?.status === 200) {
         setUserdata(userdata.map(user => 
           user._id === id ? { ...user, role: "Manager" } : user

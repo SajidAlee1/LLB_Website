@@ -1,18 +1,18 @@
+
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import Videos from './Videos'
 import PostPanel from './PostPanel'
+import api from '../config/api'
 const Posts = () => {
   const navigate = useNavigate()
   const [videopost,setVideopost] = useState([])
   const [textpost,setTextpost] = useState([])
   useEffect(()=>{
-    axios.defaults.withCredentials=true;
     const verify = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/auth/verify',{
+        const res = await api.get('/auth/verify',{
           withCredentials:true,
         });
         if(res?.status===200){
@@ -30,7 +30,7 @@ const Posts = () => {
   useEffect(()=>{
     const videoposts = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/videos/getvideopost')
+        const res = await api.get('/videos/getvideopost')
         if(res?.status===200){
           setVideopost(Array.isArray? res.data : [res.data])
         }
@@ -43,7 +43,7 @@ const Posts = () => {
   useEffect(()=>{
     const textpost = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/posts/getpost')
+        const res = await api.get('/posts/getpost')
         if(res?.status===200){
           setTextpost(Array.isArray ? res.data : [res.data]);
         }

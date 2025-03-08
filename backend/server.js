@@ -1,7 +1,10 @@
+import dotenv from 'dotenv';
+
 import app from "./index.js";
 import colors from 'colors'
 import Connect from "./db/Connect.js";
 
+dotenv.config();
 app.get("/", (req, res) => {
   res.send("Server is running!");
 });

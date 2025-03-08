@@ -1,11 +1,11 @@
 
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { ThreeDots } from "react-loader-spinner";
-import toast from "react-hot-toast";
 import { motion } from "framer-motion";
-import Skeleton,{SkeletonTheme} from "react-loading-skeleton";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { ThreeDots } from "react-loader-spinner";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../config/api";
 
 const PostDynamicRoute = () => {
   const [postdata, setPostdata] = useState([]);
@@ -17,7 +17,7 @@ const PostDynamicRoute = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`https://llbbackend.vercel.app/posts/idpost/${id}`);
+        const res = await api.get(`/posts/idpost/${id}`);
         if (res?.status === 200) {
           setPostdata([res.data]); // Ensure it's always an array
         } else {
@@ -33,8 +33,7 @@ const PostDynamicRoute = () => {
   useEffect(() => {
     const Admin = async () => {
       try {
-        axios.defaults.withCredentials = true;
-        const res = await axios.get("https://llbbackend.vercel.app/manager/managerrole", {
+        const res = await api.get("/manager/managerrole", {
           withCredentials: true,
         });
         setIsAdmin(res?.status === 200);
@@ -48,7 +47,7 @@ const PostDynamicRoute = () => {
   const deletepost = async (id) => {
     try {
       setIsLoading(true);
-      const res = await axios.delete(`https://llbbackend.vercel.app/posts/deletepost/${id}`);
+      const res = await api.delete(`/posts/deletepost/${id}`);
       if (res?.status === 200) {
         setIsLoading(false);
         toast.success("Post Deleted Successfully");

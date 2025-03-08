@@ -1,11 +1,11 @@
 
-import React, { useState, useEffect, createContext, useContext } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
+import { Box, Button, Step, StepLabel, Stepper } from "@mui/material";
 import { motion } from "framer-motion";
-import toast from 'react-hot-toast'
-import { ThreeDots } from "react-loader-spinner"; 
+import React, { createContext, useContext, useEffect, useState } from "react";
+import toast from 'react-hot-toast';
+import { ThreeDots } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
+import api from "../config/api";
 
 const steps = ["Fill Details", "Upload Notes", "Confirmation"];
 
@@ -75,10 +75,8 @@ const UploadNotes = () => {
         if(formData.semester) formdata.append('semester',semester);
         if(formData.subjectName) formdata.append('subjectName',subjectName);
         if(formData.year) formdata.append('year',year);
-        axios.defaults.withCredentials=true;
-        const res = await axios.post('https://llbbackend.vercel.app/notes/uploadnotes',formdata,{
-          withCredentials:true
-        })
+        
+        const res = await api.post('/notes/uploadnotes',formdata)
         if(res?.status===200){
           toast.success('Notes Uploaded Successfully');
           navigate('/')
@@ -96,12 +94,9 @@ const UploadNotes = () => {
   
 
   useEffect(() => {
-    axios.defaults.withCredentials = true;
     const verify = async () => {
       try {
-        const res = await axios.get("https://llbbackend.vercel.app/auth/verify", {
-          withCredentials: true,
-        });
+        const res = await api.get("/auth/verify");
         if (res?.status !== 200) {
           navigate("/login");
         }

@@ -1,24 +1,22 @@
-import React from 'react'
-import { useEffect } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import Card from '@mui/material/Card'
+import CardActionArea from '@mui/material/CardActionArea'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import { motion } from "framer-motion"
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import {  motion } from "framer-motion";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';
-import Postsend from './Postsend'
-import Videopost from './Videopost'
-import UserTable from './UserTable'
+import { useNavigate } from 'react-router-dom'
+import api from '../config/api'
 import EntireNotes from './EntireNotes'
+import Postsend from './Postsend'
+import UserTable from './UserTable'
+import Videopost from './Videopost'
 const Admin = () => {
   const navigate = useNavigate();
   useEffect(()=>{
     const admin = async ()=>{
       try {
-        const res = await axios.get('https://llbbackend.vercel.app/admin/adminrole',{
+        const res = await api.get('/admin/adminrole',{
           withCredentials:true
         })
         if(res?.status===200){

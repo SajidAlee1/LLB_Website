@@ -1,9 +1,9 @@
 
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../config/api";
 
 const initialState = {
   password: "",
@@ -45,8 +45,8 @@ const ResetPassword = () => {
     // Send reset request
     try {
       setIsLoading(true);
-      const res = await axios.patch(
-        `https://llbbackend.vercel.app/auth/resetpassword/${token}`,
+      const res = await api.patch(
+        `/auth/resetpassword/${token}`,
         { password }
       );
 
