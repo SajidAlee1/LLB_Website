@@ -21,7 +21,9 @@ const app = express();
 app.use(cors({
     origin: process.env.FRONTEND_BASE_URL,
     methods: ["POST","GET","PATCH","PUT","DELETE"],
-    credentials: true
+    credentials: true,
+    sameSite: 'none',
+    secure: true
 }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -141,21 +143,19 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'prof
 app.get('/auth/google/callback', passport.authenticate("google", { session: true }), async (req, res) => {
     try {
         const user = req.user;
-        // console.log({
-        //     user
-        //   });
         const token = jwt.sign({ id: user._id, name: user.name }, process.env.SECRET_KEY, { expiresIn: '7d' });
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
+            secure: true,
+            sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
-        res.redirect(`${process.env.FRONTEND_BASE_URL}`);
+        const redirectUrl = process.env.FRONTEND_BASE_URL || 'http://localhost:3000';
+        return res.redirect(redirectUrl);
     } catch (error) {
         console.error("Error generating token:", error);
-        
-        res.redirect(`${process.env.FRONTEND_BASE_URL}`);
+        const fallbackUrl = process.env.FRONTEND_BASE_URL || 'http://localhost:3000';
+        return res.redirect(`${fallbackUrl}?error=authentication_failed`);
     }
 });
 app.use('/auth',router);
